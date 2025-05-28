@@ -1,0 +1,14 @@
+#to delete and rebuild images
+
+docker compose down, 
+docker compose build --no-cache,
+
+docker compose up -d #for composing
+
+docker compose exec auth bash #for opening auth bash
+
+
+#for trubleshooting regards css being stupid: 
+#manually run these commands in the exec bash of the application: 
+RUN npm install && npm run build
+RUN npm install --save-dev vite laravel-vite-plugin
