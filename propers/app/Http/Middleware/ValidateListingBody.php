@@ -19,9 +19,9 @@ class ValidateListingBody
     {
 
         $validator = Validator::make($request->all(), [
-            'property_id' => 'required|string',
+            'property_id' => 'integer',
             'rooms' => 'required|array|min:1',
-            'rooms.*.room_id' => 'required|string',
+            'rooms.*.room_id' => 'integer',
             'rooms.*.date' => 'required|date_format:Y-m-d',
             'rooms.*.max_' => 'required|integer|min:1',
             'rooms.*.price' => 'required|numeric|min:0',
