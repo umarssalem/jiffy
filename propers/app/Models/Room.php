@@ -10,6 +10,13 @@ class Room extends Model
     /** @use HasFactory<\Database\Factories\RoomFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'property_id',
+        'max',
+        'price',
+    ];
+    
     public function property()
     {
         return $this->belongsTo(Property::class);

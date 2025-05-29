@@ -10,6 +10,12 @@ class Property extends Model
     /** @use HasFactory<\Database\Factories\PropertyFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'id',           // allow manually setting the ID
+        'name',
+        'number_of_rooms',
+    ];
+
     public function rooms()
     {
         return $this->hasMany(Room::class);

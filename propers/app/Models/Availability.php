@@ -10,6 +10,11 @@ class Availability extends Model
     /** @use HasFactory<\Database\Factories\AvailabilityFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'room_id',
+        'date_available',
+    ];
+    
     public function room()
     {
         return $this->belongsTo(Room::class);
