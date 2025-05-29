@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('number_of_rooms');
             $table->timestamps();
         });
     }

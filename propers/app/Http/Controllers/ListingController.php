@@ -17,7 +17,6 @@ class ListingController extends Controller
             ['id' => $propertyId],
             [
                 'name' => 'Default Name',
-                'number_of_rooms' => count(collect($roomsData)->pluck('room_id')->unique()),
             ]
         );
 

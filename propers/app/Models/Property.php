@@ -12,8 +12,7 @@ class Property extends Model
 
     protected $fillable = [
         'id',           // allow manually setting the ID
-        'name',
-        'number_of_rooms',
+        'name'
     ];
 
     public function rooms()
