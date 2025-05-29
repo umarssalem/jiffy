@@ -17,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/endpoint', function () {
+    $mockData = [
+        'id' => rand(1, 100),
+        'name' => fake()->name(),
+        'email' => fake()->unique()->safeEmail(),
+        'created_at' => now()->toDateTimeString()
+    ];
+
+    return response()->json($mockData);
+});
