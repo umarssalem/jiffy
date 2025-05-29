@@ -45,6 +45,12 @@ class Kernel extends HttpKernel
         ],
     ];
 
+    protected $routeMiddleware = [
+        // ...
+        'basic.token.auth' => \App\Http\Middleware\BasicTokenAuth::class,
+        'validate.listing.body' => \App\Http\Middleware\ValidateListingBody::class,
+    ];
+
     /**
      * The application's middleware aliases.
      *
