@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +31,5 @@ Route::get('/endpoint', function (Request $request) {
     return response()->json($mockData);
 })->middleware('basic.token.auth');
 
-Route::post('/publish/listing', function (Request $request) {
-   
-    $mockData = [
-        'id' => rand(1, 100),
-        'name' => fake()->name(),
-        'email' => fake()->unique()->safeEmail(),
-        'created_at' => now()->toDateTimeString(),
-    ];
-    return response()->json($mockData);
-})->middleware(['basic.token.auth', 'validate.listing.body']);
+Route::post('/publish/listing', [ListingController::class, 'publish'])
+    ->middleware(['basic.token.auth', 'validate.listing.body']);
