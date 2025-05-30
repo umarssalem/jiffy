@@ -20,16 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/endpoint', function (Request $request) {
-    $mockData = [
-        'id' => rand(1, 100),
-        'name' => fake()->name(),
-        'email' => fake()->unique()->safeEmail(),
-        'created_at' => now()->toDateTimeString(),
-    ];
-
-    return response()->json($mockData);
-})->middleware('basic.token.auth');
+Route::get('/availability', [ListingController::class, 'check'])
+    ->middleware(['basic.token.auth', 'validate.availability.request']);
 
 Route::post('/publish/listing', [ListingController::class, 'publish'])
     ->middleware(['basic.token.auth', 'validate.listing.body']);

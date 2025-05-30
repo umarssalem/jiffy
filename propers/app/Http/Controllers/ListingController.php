@@ -46,4 +46,24 @@ class ListingController extends Controller
             'message' => 'successfully published'
         ]);
     }
+
+    public function check(Request $request){
+        $propertyId = $request->property_id;
+        $checkIn = $request->check_in;
+        $checkOut = $request->check_out;
+        $guests = $request->guests;
+
+        $query = Room::where('property_id', $propertyId);
+        
+
+        if ($guests) {
+            $query->where('max', '>=', $guests);
+        }
+
+        $availableRooms = $query->get();
+        return response()->json([
+            'available_rooms' => $availableRooms,
+            'total_available' => $availableRooms->count(),
+        ]);
+    }
 }
