@@ -20,8 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/availability', [ListingController::class, 'check'])
-    ->middleware(['basic.token.auth', 'validate.availability.request']);
 
-Route::post('/publish/listing', [ListingController::class, 'publish'])
-    ->middleware(['basic.token.auth', 'validate.listing.body']);
+Route::middleware(['throttle:api-token'])->group(function () {
+
+    Route::get('/availability', [ListingController::class, 'check'])
+        ->middleware(['basic.token.auth', 'validate.availability.request']);
+
+    Route::post('/publish/listing', [ListingController::class, 'publish'])
+        ->middleware(['basic.token.auth', 'validate.listing.body']);
+});
