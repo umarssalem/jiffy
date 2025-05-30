@@ -28,13 +28,32 @@ class BasicTokenAuth
             return response()->json(['error' => 'Invalid credentials format'], 403);
         }
         [$email, $password] = explode(':', $decoded, 2);
-
-        $user = User::where('email', $email)->first();
-
-        if (! $user || ! Hash::check($password, $user->password)) {
+        
+        if (! $this->authenticatUser($email, $password)) {
             return response()->json(['error' => 'Invalid credentials'], 403);
-        }   
+        }  
 
         return $next($request);
+    }
+
+    private function authenticatUser(string $email, string $password)
+    {
+        
+        // Check against .env dialogflow credentials
+        if (
+            $email === env('DIALOG_FLOW_USER') &&
+            $password === env('DIALOG_FLOW_PASSWORD')
+        ) {
+            return true;
+        }
+
+        // Fallback to checking against database
+        $user = User::where('email', $email)->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            return true;
+        }
+
+        return false;
     }
 }
