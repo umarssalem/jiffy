@@ -93,4 +93,39 @@ curl -X GET "http://localhost:8082/api/availability?property_id=123&check_in=202
 -H "Authorization: Basic {base64_encoded(email:password)}"
 ```
 
+#### POST `/api/publish/listing`
+
+Publishes room availability and pricing for Room within a given property
+
+**Request Payload:**
+
+#### Example Request
+```bash
+curl -X POST "http://localhost:8082/api/publish/listing" \
+-H "Content-Type: application/json" \
+-H "Authorization: Basic {base64_encoded(email:password)}" \
+-d '{
+  "property_id": 123,
+  "rooms": [
+    {
+      "room_id": 1,
+      "date": "2025-06-01",
+      "max_guests": 3,
+      "price": 129.99
+    },
+    {
+      "room_id": 1,
+      "date": "2025-06-02",
+      "max_guests": 3,
+      "price": 99.99
+    },
+    {
+      "room_id": 1,
+      "date": "2025-06-01",
+      "max_guests": 2,
+      "price": 89.99
+    }
+  ]
+}'
+```
 
