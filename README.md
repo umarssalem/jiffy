@@ -128,4 +128,24 @@ curl -X POST "http://localhost:8082/api/publish/listing" \
   ]
 }'
 ```
+__________________________________________________________________________________
+## ⚙️ Usage
 
+This application is designed as a proof of concept, so usage is straightforward:
+
+1. Open your browser and go to:  
+   `http://localhost:8081`
+
+2. Sign up for a new account.
+
+3. Log in with your credentials.
+
+4. After logging in, you will see a page with a **Dialogflow chat interface**.
+
+5. Use the chat to ask questions about:
+   - Parking
+   - Check-in time
+   - Check-out time
+   - Availability queries
+
+Enjoy interacting with the booking system via natural language!
