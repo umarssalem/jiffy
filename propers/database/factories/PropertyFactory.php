@@ -9,16 +9,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PropertyFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Property::class;
+
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company . ' Hotel',
-            'number_of_rooms' => $this->faker->numberBetween(1, 10),
+            'name' => $this->faker->company,
         ];
     }
 }

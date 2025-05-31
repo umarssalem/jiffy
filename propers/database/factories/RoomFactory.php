@@ -3,24 +3,19 @@
 namespace Database\Factories;
 
 use App\Models\Room;
-use App\Models\Availability;
+use App\Models\Property;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Room>
- */
 class RoomFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Room::class;
+
     public function definition(): array
     {
         return [
-            'room_id' => Room::factory(),
-            'date_available' => $this->faker->dateTimeBetween('+0 days', '+30 days')->format('Y-m-d'),
+            'property_id' => Property::factory(), // ✅ This creates a property for this room
+            'max' => $this->faker->numberBetween(1, 5),
+            'price' => $this->faker->randomFloat(2, 50, 200),
         ];
     }
 }
