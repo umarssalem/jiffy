@@ -21,7 +21,6 @@ class ListingController extends Controller
         );
 
         foreach ($roomsData as $roomData) {
-            // Step 2: Find or create/update the Room
             $room = Room::updateOrCreate(
                 [
                     'property_id' => $property->id,
@@ -33,7 +32,6 @@ class ListingController extends Controller
                 ]
             );
 
-            // Step 3: Find or create/update the RoomAvailability
             Availability::updateOrCreate(
                 [
                     'room_id' => $room->id,
