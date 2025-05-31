@@ -66,4 +66,45 @@ class ListingController extends Controller
             'total_available' => $availableRooms->count(),
         ]);
     }
+
+    public function checkDialogFlowRequest(Request $request){
+        // Extract parameters from JSON body: queryResult.parameters
+        $parameters = $request->input('queryResult.parameters');
+
+        $propertyId = $parameters['property_id'] ?? null;
+        $checkIn = $parameters['check_in'] ?? null;
+        $checkOut = $parameters['checkout'] ?? null;
+        $guests = $parameters['number_of_guests'] ?? null;
+
+        if (!$propertyId || !$checkIn || !$checkOut || !$guests) {
+            return response()->json([
+                'fulfillmentText' => 'Some booking information is missing. Please provide all details.'
+            ]);
+        }
+         $query = Room::where('property_id', $propertyId);
+
+        if ($guests) {
+            $query->where('max', '>=', $guests);
+        }
+
+        $availableRooms = $query->get();
+        $totalAvailable = $availableRooms->count();
+
+        if ($totalAvailable === 0) {
+            return response()->json([
+                'fulfillmentText' => 'Sorry, no rooms are available for that period and guest count.'
+            ]);
+        }
+
+        $roomSummaries = $availableRooms->map(function ($room) {
+            return "room with ID {$room->id} for \${$room->price} per night";
+        })->implode(', ');
+
+        $message = "Yes, we found {$totalAvailable} available room(s) from {$checkIn} to {$checkOut} for {$guests} guest(s): {$roomSummaries}.";
+
+        // Respond with fulfillmentText so Dialogflow shows it to the user
+        return response()->json([
+            'fulfillmentText' => $message,
+        ]);
+    }
 }
