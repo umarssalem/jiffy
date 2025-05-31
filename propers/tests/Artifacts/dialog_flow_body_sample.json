@@ -1,0 +1,11 @@
+{
+    "queryResult": {
+        "queryText": "2",
+        "parameters": {
+            "property_id": 1,
+            "check_in": "2025-01-06T12:00:00Z",
+            "checkout": "2025-02-06T12:00:00Z",
+            "number_of_guests": 2
+        }   
+    }
+}

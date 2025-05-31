@@ -1,0 +1,23 @@
+{
+    "property_id": null,
+    "rooms": [
+        {
+            "room_id": null,
+            "date": "2025-06-02",
+            "max_": 3,
+            "price": 75
+        },
+        {
+            "room_id": null,
+            "date": "2025-06-03",
+            "max_": 3,
+            "price": 75
+        },
+        {
+            "room_id": null,
+            "date": "2025-06-04",
+            "max_": 3,
+            "price": 75
+        }
+    ]
+}

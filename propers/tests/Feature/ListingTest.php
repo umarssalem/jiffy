@@ -106,6 +106,23 @@ class ListingTest extends TestCase
         ]);
     }
 
+    /**
+     * @depends test_publish_listing
+     */
+    public function test_dialogflow_request(): void
+    {
+        $payload = $this->prepareDialogflowPayload();
+        $token = base64_encode(env('DIALOG_FLOW_USER'). ':' .env('DIALOG_FLOW_PASSWORD'));
+        $response = $this->postJson('/api/availability', $payload, ['Authorization' => 'Basic ' . $token]);
+        
+        $response->assertStatus(200);
+        
+        $responseData = $response->json();
+        $this->assertStringContainsString("room with ID {$this->room->id}", $responseData['fulfillmentText']);
+    }
+
+
+    
     protected function tearDown(): void
     {
         $this->user->delete();
@@ -113,7 +130,8 @@ class ListingTest extends TestCase
         $this->property->delete();
     }
 
-    private function preparePayload(){
+    private function preparePayload(): array
+    {
         $json = file_get_contents(base_path('tests/Artifacts/publish_sample.json'));
         $payload = json_decode($json, true);
 
@@ -122,6 +140,19 @@ class ListingTest extends TestCase
             $room['room_id'] = $this->room->id;
             $room['date'] = now()->addDays(1 + $i)->toDateString(); // e.g., 2025-06-01, 2025-06-02, etc.
         }
+        return $payload;
+    }
+
+    private function prepareDialogflowPayload(){
+        $json = file_get_contents(base_path('tests/Artifacts/dialog_flow_body_sample.json'));
+        $payload = json_decode($json, true);
+
+        // Replace parameters with actual test values
+        $payload['queryResult']['parameters']['property_id'] = $this->property->id;
+        $payload['queryResult']['parameters']['check_in'] = now()->addDays(1)->toIso8601String();
+        $payload['queryResult']['parameters']['checkout'] = now()->addDays(2)->toIso8601String();
+        $payload['queryResult']['parameters']['number_of_guests'] = 1;
+
         return $payload;
     }
 }
