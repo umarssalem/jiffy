@@ -29,9 +29,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8082">Properties</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Users</a>
-                    </li>
                 </ul>
             </aside>
 
