@@ -24,12 +24,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('api', function (Request $request) {
+        RateLimiter::for('api-token', function (Request $request) {
             $user = $request->getUser();
             // Fallback to IP if not authenticated
             $key = $user ? sha1($user) : $request->ip();
 
-            return Limit::perHour(100)->by($key);
+            return Limit::perMinute(100)->by($key);
         });
 
         $this->routes(function () {
