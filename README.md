@@ -71,4 +71,26 @@ The API uses **Basic Authentication**. To access the API, you need to create an 
 Example: if your email is `user@example.com` and password is `mypassword`, encode `user@example.com:mypassword` in base64 and include it in the header.
 
 
+### 📍 Endpoints
+
+#### GET `/api/availability`
+
+Retrieves availability information for a given property based on the provided query parameters.
+
+**Query Parameters:**
+
+| Parameter    | Type    | Description                      |
+|--------------|---------|----------------------------------|
+| `property_id`| integer | The ID of the property to check   |
+| `check_in`   | date    | Check-in date (format: `YYYY-MM-DD`) |
+| `check_out`  | date    | Check-out date (format: `YYYY-MM-DD`) |
+| `guests`     | integer | Number of guests                  |
+
+#### Example Request
+
+```bash
+curl -X GET "http://localhost:8082/api/availability?property_id=123&check_in=2025-06-01&check_out=2025-06-05&guests=2" \
+-H "Authorization: Basic {base64_encoded(email:password)}"
+```
+
 
