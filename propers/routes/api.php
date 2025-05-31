@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::middleware(['throttle:api-token'])->group(function () {
+Route::middleware(['throttle:api'])->group(function () {
     Route::get('/availability', [ListingController::class, 'check'])
         ->middleware(['basic.token.auth', 'validate.availability.request']);
 
